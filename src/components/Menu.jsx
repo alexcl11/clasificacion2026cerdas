@@ -8,7 +8,7 @@ export default function Menu() {
 
   return (
     <nav className={styles.nav}>
-      <h3 className={styles.logo}> Contador Borrachos</h3>
+      <h3 className={styles.logo}>Contador Borrachos</h3>
 
       <div className={styles.links}>
         {!user && (
