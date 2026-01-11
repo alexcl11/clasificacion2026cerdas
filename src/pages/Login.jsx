@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { signIn } from '../services/auth'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import styles from './Login.module.css'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -22,28 +23,40 @@ export default function Login() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Login</h2>
+    <div className={styles.container}>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <h2 className={styles.title}>🍻 Iniciar Sesión</h2>
 
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        required
-      />
+        <div className={styles.inputGroup}>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            required
+            className={styles.input}
+          />
+        </div>
 
-      <input
-        type="password"
-        placeholder="Contraseña"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        required
-      />
+        <div className={styles.inputGroup}>
+          <input
+            type="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            required
+            className={styles.input}
+          />
+        </div>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p className={styles.error}>{error}</p>}
 
-      <button>Entrar</button>
-    </form>
+        <button className={styles.button}>Entrar</button>
+
+        <div className={styles.footer}>
+          ¿No tienes cuenta? <Link to="/register">Regístrate aquí</Link>
+        </div>
+      </form>
+    </div>
   )
 }

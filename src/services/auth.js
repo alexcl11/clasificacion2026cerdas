@@ -12,16 +12,21 @@ export async function signUp(email, password, username) {
 
   if (authError) throw authError
 
-  // 2. Guardar usuario en tabla 'users'
+  // 2. Guardar usuario en tabla 'profiles' usando upsert para evitar duplicados
   if (authData.user) {
     const { error: dbError } = await supabase
       .from('profiles')
-      .insert({
+      .upsert({
         id: authData.user.id,
         username: username
+      }, {
+        onConflict: 'id'
       })
 
-    if (dbError) throw dbError
+    // Solo lanzar error si no es un problema de duplicado
+    if (dbError && dbError.code !== '23505') {
+      throw dbError
+    }
   }
 
   return authData

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { signUp } from '../services/auth'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import styles from './Register.module.css'
 
 export default function Register() {
   const [email, setEmail] = useState('')
@@ -23,35 +24,50 @@ export default function Register() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Registro</h2>
+    <div className={styles.container}>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <h2 className={styles.title}>🎉 Crear Cuenta</h2>
 
-      <input
-        placeholder="Usuario"
-        value={username}
-        onChange={e => setUsername(e.target.value)}
-        required
-      />
+        <div className={styles.inputGroup}>
+          <input
+            placeholder="Usuario"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            required
+            className={styles.input}
+          />
+        </div>
 
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        required
-      />
+        <div className={styles.inputGroup}>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            required
+            className={styles.input}
+          />
+        </div>
 
-      <input
-        type="password"
-        placeholder="Contraseña"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        required
-      />
+        <div className={styles.inputGroup}>
+          <input
+            type="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            required
+            className={styles.input}
+          />
+        </div>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p className={styles.error}>{error}</p>}
 
-      <button>Registrarse</button>
-    </form>
+        <button className={styles.button}>Registrarse</button>
+
+        <div className={styles.footer}>
+          ¿Ya tienes cuenta? <Link to="/login">Inicia sesión aquí</Link>
+        </div>
+      </form>
+    </div>
   )
 }

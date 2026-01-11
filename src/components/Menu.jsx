@@ -1,15 +1,16 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { signOut } from '../services/auth'
+import styles from './Menu.module.css'
 
 export default function Menu() {
   const { user } = useAuth()
 
   return (
-    <nav style={styles.nav}>
-      <h3 style={styles.logo}>🍻 Contador</h3>
+    <nav className={styles.nav}>
+      <h3 className={styles.logo}> Contador Borrachos</h3>
 
-      <div style={styles.links}>
+      <div className={styles.links}>
         {!user && (
           <>
             <Link to="/login">Login</Link>
@@ -19,9 +20,12 @@ export default function Menu() {
 
         {user && (
           <>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/dashboard">Perfil</Link>
+            <Link to="/consumption">Consumir</Link>
             <Link to="/ranking">Ranking</Link>
-            <button onClick={signOut} style={styles.logout}>
+            <Link to="/statistics">Estadísticas</Link>
+            <Link to="/add-drink">Añadir Bebida</Link>
+            <button onClick={signOut} className={styles.logout}>
               Cerrar sesión
             </button>
           </>
@@ -29,30 +33,4 @@ export default function Menu() {
       </div>
     </nav>
   )
-}
-
-const styles = {
-  nav: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '10px 20px',
-    background: '#222',
-    color: 'white',
-    alignItems: 'center'
-  },
-  logo: {
-    margin: 0
-  },
-  links: {
-    display: 'flex',
-    gap: '15px',
-    alignItems: 'center'
-  },
-  logout: {
-    background: 'crimson',
-    color: 'white',
-    border: 'none',
-    padding: '5px 10px',
-    cursor: 'pointer'
-  }
 }
