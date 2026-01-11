@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from 'react'
 import { supabase } from '../services/supabaseClient'
 import { DEFAULT_AVATAR } from '../services/profile'
 import styles from './Ranking.module.css'
+import statsStyles from './Statistics.module.css'
+import { getUserConsumptions } from '../services/consumptions'
 
 export default function Ranking() {
   const [ranking, setRanking] = useState([])
@@ -10,6 +12,9 @@ export default function Ranking() {
   const [error, setError] = useState(null)
   const [refreshing, setRefreshing] = useState(false)
   const pollingIntervalRef = useRef(null)
+  const [selectedUser, setSelectedUser] = useState(null)
+  const [consumptions, setConsumptions] = useState([])
+  const [modalTitle, setModalTitle] = useState('')
 
   async function fetchRanking() {
     setError(null)
@@ -151,6 +156,27 @@ export default function Ranking() {
     setRefreshing(false)
   }
 
+  async function showUserConsumptions(user) {
+    if (!user) return
+    try {
+      const data = await getUserConsumptions(user.user_id)
+      setConsumptions(data || [])
+      setSelectedUser(user)
+      setModalTitle(`Consumiciones de ${user.username}`)
+    } catch (err) {
+      console.error('Error loading consumptions:', err)
+      setConsumptions([])
+      setSelectedUser(user)
+      setModalTitle(`Consumiciones de ${user.username}`)
+    }
+  }
+
+  function closeModal() {
+    setSelectedUser(null)
+    setConsumptions([])
+    setModalTitle('')
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.card}>
@@ -203,7 +229,7 @@ export default function Ranking() {
                           {index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : index + 1}
                         </span>
                       </td>
-                      <td className={styles.userCell}>
+                      <td className={styles.userCell} onClick={() => showUserConsumptions(user)} style={{ cursor: 'pointer' }}>
                         <img 
                           src={user.avatar_url ? user.avatar_url : `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.user_id}`}
                           alt={user.username}
@@ -227,6 +253,45 @@ export default function Ranking() {
           </div>
         )}
       </div>
+      {selectedUser && (
+        <div className={statsStyles.modalOverlay} onClick={closeModal}>
+          <div className={statsStyles.modal} onClick={e => e.stopPropagation()}>
+            <div className={statsStyles.modalHeader}>
+              <h2 className={statsStyles.modalTitle}>{modalTitle}</h2>
+              <button className={statsStyles.closeButton} onClick={closeModal}>✕</button>
+            </div>
+            <div className={statsStyles.modalContent}>
+              {consumptions.length === 0 ? (
+                <p className={statsStyles.noData}>No hay consumiciones</p>
+              ) : (
+                <ul className={statsStyles.consumptionsList}>
+                  {consumptions.map(consumption => (
+                    <li key={consumption.id} className={statsStyles.consumptionItem}>
+                      <div className={statsStyles.consumptionInfo}>
+                        <span className={statsStyles.consumptionDrink}>{consumption.drinks.name}</span>
+                        <span className={statsStyles.consumptionQuantity}>x{consumption.quantity}</span>
+                      </div>
+                      <div className={statsStyles.consumptionDetails}>
+                        <span className={statsStyles.consumptionPoints}>
+                          +{consumption.drinks.points * consumption.quantity} pts
+                        </span>
+                        <span className={statsStyles.consumptionDate}>
+                          {new Date(consumption.consumed_at).toLocaleDateString('es-ES', {
+                            day: 'numeric',
+                            month: 'short',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                          })}
+                        </span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
