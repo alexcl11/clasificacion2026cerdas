@@ -73,3 +73,32 @@
   background: linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%);
   box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
 }
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    font-size: 1.3rem;
+  }
+
+  .links {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+
+  .links a {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .logout {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}

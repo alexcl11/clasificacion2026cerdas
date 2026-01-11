@@ -182,6 +182,59 @@
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding: 1.5rem 0.5rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+
+  .cardTitle {
+    font-size: 1.5rem;
+  }
+
+  .playerOfMonth .cardTitle,
+  .playerOfMonth .leaderName {
+    font-size: 1.5rem;
+  }
+
+  .leaderInfo {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .leaderAvatar {
+    width: 60px;
+    height: 60px;
+  }
+
+  .drinkLeaderAvatar {
+    width: 50px;
+    height: 50px;
+  }
+
+  .leaderName {
+    font-size: 1.3rem;
+  }
+
+  .leaderStats {
+    font-size: 1rem;
+  }
+
+  .drinkLeaderName {
+    font-size: 1.1rem;
+  }
+
+  .drinkLeaderStats {
+    font-size: 0.9rem;
+  }
+
   .drinkLeadersGrid {
     grid-template-columns: 1fr;
   }

@@ -148,3 +148,35 @@
     transform: translateY(0);
   }
 }
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem 1rem;
+  }
+
+  .card {
+    padding: 2rem 1.5rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .username {
+    font-size: 1.1rem;
+  }
+
+  .email {
+    font-size: 0.9rem;
+  }
+
+  .button {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}

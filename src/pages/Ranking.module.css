@@ -310,3 +310,69 @@
     transform: translateY(0);
   }
 }
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem 0.5rem;
+  }
+
+  .card {
+    padding: 1.5rem 0.5rem;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .refreshButton {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+
+  .tableWrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .rankingTable {
+    min-width: 600px;
+    font-size: 0.85rem;
+  }
+
+  .rankingTable th,
+  .rankingTable td {
+    padding: 0.5rem 0.3rem;
+  }
+
+  .userCell {
+    gap: 0.5rem;
+    padding-left: 0.5rem;
+  }
+
+  .userAvatar {
+    width: 30px;
+    height: 30px;
+  }
+
+  .position {
+    font-size: 1rem;
+  }
+
+  .medal {
+    font-size: 1.2rem;
+  }
+
+  .drinkColumn {
+    font-size: 0.75rem;
+  }
+
+  .drinkPoints {
+    font-size: 0.65rem;
+  }
+}
